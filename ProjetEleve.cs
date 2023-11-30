@@ -66,8 +66,6 @@ namespace Projet_IMA
             //////////////////////////////////////////////////////////////////////////
 
 
-            
-
             int kSpecularPowerRect = 100;
             float kBumpinessRect = 0.008f;
 
