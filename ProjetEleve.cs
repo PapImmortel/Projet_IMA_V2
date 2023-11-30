@@ -68,7 +68,7 @@ namespace Projet_IMA
 
             int kSpecularPowerRect = 100;
             float kBumpinessRect = 0.008f;
-
+             
 
             V3 Origine = new V3(500, 200, 300);
             V3 Coté1 = new V3(300, 000, 000);
