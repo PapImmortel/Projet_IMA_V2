@@ -32,7 +32,7 @@ namespace Projet_IMA
 
             //texture
             float kBumpinessSphere = 0.02f;
-            V3 CentreSphere = new V3(300, 200, 300);
+            V3 CentreSphere = new V3(300, 400, 300);
             float vRayon = 150;
             Texture sphereTexture = new Texture("uvtest.jpg");
             Texture sphereBumpiness = new Texture("bump38.jpg");
@@ -41,9 +41,9 @@ namespace Projet_IMA
             notreScene.addListItem(notreSphere);
 
             float kBumpinessRect = 0.008f;
-            V3 Origine = new V3(500, 200, 300);
+            V3 Origine = new V3(500, 100, 300);
             V3 Coté1 = new V3(300, 000, 000);
-            V3 Coté2 = new V3(000, 200, 000);
+            V3 Coté2 = new V3(000, 000, 200);
             //texture
 
             Texture rectangleTexture = new Texture("uvtest.jpg");
