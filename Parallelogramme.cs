@@ -5,31 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Projet_IMA
 {
-    class Pavé
+    class Parallelogramme : Item
     {
         private V3 origine;
         private V3 coté1;
         private V3 coté2;
-        private Texture rectangleTexture;
-        private Texture rectangleBumpiness;
         
-        public Pavé(V3 pOrigine,V3 pCote1,V3 pCote2,Texture pRectangleTexture, Texture pRectangleBumpiness)
+        public Parallelogramme(V3 pOrigine,V3 pCote1,V3 pCote2,Texture pRectangleTexture, Texture pRectangleBumpiness) : base(1,pRectangleTexture,pRectangleBumpiness)
         {
             this.origine = pOrigine;
             this.coté1 = pCote1;
             this.coté2 = pCote2;
-            this.rectangleTexture = pRectangleTexture;
-            this.rectangleBumpiness = pRectangleBumpiness;
         }
-        public Texture TexturePack { get { return rectangleTexture; } set { rectangleTexture = value; } }
-        public Texture Bumpiness { get { return rectangleBumpiness; } set { rectangleBumpiness = value; } }
+
         public V3 positionOrigine { get { return this.origine; } set { this.origine = value; } }
         public V3 positionCote1 { get { return this.coté1; } set { this.coté1 = value; } }
         public V3 positionCote2 { get { return this.coté2; } set { this.coté2 = value; } }
 
         public Couleur getCouleurText(float u, float v)
         {
-            Couleur cRectangle = this.rectangleTexture.LireCouleur(u, v);
+            Couleur cRectangle = TexturePack.LireCouleur(u, v);
             return cRectangle;
         }
         public V3[] dessinVariable(float u, float v, float kBumpinessRec, V3 positionCamera3D)
@@ -38,7 +33,7 @@ namespace Projet_IMA
 
 
             V3 n3D = new V3(0, 0, 60000);
-            rectangleBumpiness.Bump(u, v, out float dhdu, out float dhdv);
+            TextureBumpiness.Bump(u, v, out float dhdu, out float dhdv);
 
 
 

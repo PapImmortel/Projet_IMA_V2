@@ -84,8 +84,8 @@
 	<Compile Include="Sphere.cs" />
 	<Compile Include="Illumination.cs" />
 	<Compile Include="SceneProjet.cs" />
-	<Compile Include="Pavé.cs" />
-
+	<Compile Include="Parallelogramme.cs" />
+	<Compile Include="Item.cs" />
 
 	  <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

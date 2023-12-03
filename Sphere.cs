@@ -5,28 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Projet_IMA
 {
-    class Sphere
+    class Sphere : Item
     {
         private V3 centreSphere;
-        private Texture sphereTexture;
-        private Texture sphereBumpiness;
         private float aRayon;
-        public Sphere(V3 pCentreSphere, Texture pSphereTexture, Texture pSphereBumpiness,float pRayon)
+        public Sphere(V3 pCentreSphere, Texture pSphereTexture, Texture pSphereBumpiness,float pRayon) : base(0,pSphereTexture,pSphereBumpiness)
         {
             this.centreSphere = pCentreSphere;
-            this.sphereTexture = pSphereTexture;
-            this.sphereBumpiness = pSphereBumpiness;
             this.aRayon = pRayon;
         }
-        public Texture TexturePack { get { return sphereTexture; } set { sphereTexture = value; } }
-        public Texture Bumpiness { get { return sphereBumpiness; } set { sphereBumpiness = value; } }
-        public V3 PositionCentre { get { return centreSphere; } set { centreSphere = value; } }
+
+        public V3 PositionCentre { get { return this.centreSphere; } set { this.centreSphere = value; } }
+        public float TailleRayon { get { return this.aRayon; } set { this.aRayon = value; } }
 
         public Couleur getCouleurText(float u,float v)
         {
             float uNorm = u / (2 * IMA.PI);
             float vNorm = (v / IMA.PI) + 0.5f;
-            Couleur CSphere = this.sphereTexture.LireCouleur(uNorm, vNorm);
+            Couleur CSphere = TexturePack.LireCouleur(uNorm, vNorm);
             return CSphere;
         }
         public V3[] dessinVariable(float u, float v,float kBumpiness, V3 positionCamera3D)
@@ -34,9 +30,9 @@ namespace Projet_IMA
             float nX3D = IMA.Cosf(v) * IMA.Cosf(u);
             float nY3D = IMA.Cosf(v) * IMA.Sinf(u);
             float nZ3D = IMA.Sinf(v);
-            float x3D = this.aRayon * nX3D + centreSphere.x; 
-            float y3D = this.aRayon * nY3D + centreSphere.y;
-            float z3D = this.aRayon * nZ3D + centreSphere.z;
+            float x3D = this.aRayon * nX3D + this.centreSphere.x; 
+            float y3D = this.aRayon * nY3D + this.centreSphere.y;
+            float z3D = this.aRayon * nZ3D + this.centreSphere.z;
             V3 point3D = new V3(x3D, y3D, z3D);
             V3 n3D = new V3(nX3D, nY3D, nZ3D);
 
@@ -47,7 +43,7 @@ namespace Projet_IMA
 
 
             //bumpmapping
-            sphereBumpiness.Bump(uNorm, vNorm, out float dhdu, out float dhdv);
+            TextureBumpiness.Bump(uNorm, vNorm, out float dhdu, out float dhdv);
             //T2 = dhdu*(N^DM/Dv)  T3=dhdv*(DM/Du^N)
 
             V3 dmdu = new V3((IMA.Cosf(vNorm) * (-IMA.Sinf(uNorm))), IMA.Cosf(uNorm) * IMA.Cosf(vNorm), 0);
@@ -63,11 +59,5 @@ namespace Projet_IMA
             V3 [] lesVariables =new [] { n3D,d3D,point3D};
             return lesVariables;//, d3D,point3D
         }
-
-
-
-            
-
-        
-	}
+    }
 }

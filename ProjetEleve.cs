@@ -38,6 +38,25 @@ namespace Projet_IMA
             Texture sphereTexture = new Texture("gold.jpg");
             Texture sphereBumpiness = new Texture("bump38.jpg");
             Sphere notreSphere = new Sphere(CentreSphere,sphereTexture, sphereBumpiness,vRayon);
+
+            notreScene.addListItem(notreSphere);
+
+            //raycasting
+
+            for (int x_ecran = 0; x_ecran <= BitmapEcran.GetWidth(); x_ecran++)
+            {
+                for (int y_ecran = 0; y_ecran <= BitmapEcran.GetHeight(); y_ecran++)
+                {
+                    V3 PosPixScene = new V3(x_ecran, 0, y_ecran);
+                    V3 DirRayon = PosPixScene - notreScene.modifPositionCamera;
+                    Couleur couleurEcran = Illumination.raycasting(notreScene.modifPositionCamera, DirRayon, notreScene.getListItem); //ListObjetScene a definir
+                    Affiche(x_ecran, y_ecran, couleurEcran);
+                }
+            }
+
+
+
+
             for (float u = 0 ; u < 2 * IMA.PI; u += pas)  // echantillonage fnt paramétrique
             {
                 for (float v = -IMA.PI / 2; v < IMA.PI / 2; v += pas)
@@ -46,7 +65,7 @@ namespace Projet_IMA
 
                     
                     V3[] nosVariables = notreSphere.dessinVariable(u,v,kBumpinessSphere,notreScene.modifPositionCamera);
-*/
+
                     Couleur couleurFinale = Illumination.éclairageObjet(notreScene.getListLampe(),notreSphere.getCouleurText(u,v), nosVariables[0], nosVariables[1], kSpecularPower);
                     
 
@@ -58,6 +77,9 @@ namespace Projet_IMA
 
             }
 
+
+
+            
 
             //////////////////////////////////////////////////////////////////////////
             ///
@@ -78,7 +100,7 @@ namespace Projet_IMA
             Texture rectangleTexture = new Texture("gold.jpg");
             Texture rectangleBumpiness = new Texture("bump38.jpg");
 
-            Pavé notreRectangle = new Pavé(Origine,Coté1,Coté2,rectangleTexture,rectangleBumpiness);
+            Parallelogramme notreRectangle = new Parallelogramme(Origine,Coté1,Coté2,rectangleTexture,rectangleBumpiness);
 
             pas = 0.002f;
             for (float u = 0; u < 1; u += pas)  // echantillonage fnt paramétrique

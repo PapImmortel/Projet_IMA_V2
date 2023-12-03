@@ -14,15 +14,16 @@ namespace Projet_IMA
         private int z;*/
         private V3 direction;
 
-        public float Puissance { get { return this.puissance; } set { this.puissance = value; } }
-
-        public V3 Direction { get { return this.direction; } set { this.direction = value; } }
-
         public Lampe(float puissance, V3 direction)
         {
             this.puissance = puissance;
             this.direction = direction;
         }
+        public float Puissance { get { return this.puissance; } set { this.puissance = value; } }
+
+        public V3 Direction { get { return this.direction; } set { this.direction = value; } }
+
+       
 
         public Couleur getCouleur()
         {
