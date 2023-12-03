@@ -9,7 +9,7 @@ namespace Projet_IMA
     {
         private V3 centreSphere;
         private float aRayon;
-        public Sphere(V3 pCentreSphere, Texture pSphereTexture, Texture pSphereBumpiness,float pRayon) : base(0,pSphereTexture,pSphereBumpiness)
+        public Sphere(V3 pCentreSphere, Texture pSphereTexture, Texture pSphereBumpiness,float pRayon, float pKBumpiness) : base(0,pSphereTexture,pSphereBumpiness, pKBumpiness)
         {
             this.centreSphere = pCentreSphere;
             this.aRayon = pRayon;
@@ -18,14 +18,14 @@ namespace Projet_IMA
         public V3 PositionCentre { get { return this.centreSphere; } set { this.centreSphere = value; } }
         public float TailleRayon { get { return this.aRayon; } set { this.aRayon = value; } }
 
-        public Couleur getCouleurText(float u,float v)
+        public override Couleur getCouleurText(float u,float v)
         {
             float uNorm = u / (2 * IMA.PI);
             float vNorm = (v / IMA.PI) + 0.5f;
             Couleur CSphere = TexturePack.LireCouleur(uNorm, vNorm);
             return CSphere;
         }
-        public V3[] dessinVariable(float u, float v,float kBumpiness, V3 positionCamera3D)
+        public override V3[] dessinVariable(float u, float v, V3 positionCamera3D)
         {
             float nX3D = IMA.Cosf(v) * IMA.Cosf(u);
             float nY3D = IMA.Cosf(v) * IMA.Sinf(u);
@@ -49,14 +49,15 @@ namespace Projet_IMA
             V3 dmdu = new V3((IMA.Cosf(vNorm) * (-IMA.Sinf(uNorm))), IMA.Cosf(uNorm) * IMA.Cosf(vNorm), 0);
             V3 dmdv = new V3((-IMA.Sinf(vNorm) * IMA.Cosf(uNorm)), (-IMA.Sinf(vNorm) * IMA.Sinf(uNorm)), IMA.Cosf(vNorm));
 
-            V3 nBump3D = n3D + (kBumpiness * (dhdu * V3.prod_vect(n3D, dmdv) + (dhdv * V3.prod_vect(dmdu, n3D))));
+            V3 nBump3D = n3D + (modifKBumpiness * (dhdu * V3.prod_vect(n3D, dmdv) + (dhdv * V3.prod_vect(dmdu, n3D))));
             n3D = nBump3D;
             n3D.Normalize();
             Couleur couleurFinale = new Couleur(0, 0, 0);
             V3 d3D = positionCamera3D - point3D;
             d3D.Normalize();
 
-            V3 [] lesVariables =new [] { n3D,d3D,point3D};
+            //V3 [] lesVariables =new [] { n3D,d3D,point3D};
+            V3[] lesVariables = new[] { n3D, d3D};
             return lesVariables;//, d3D,point3D
         }
     }

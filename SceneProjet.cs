@@ -11,7 +11,6 @@ namespace Projet_IMA
         private List<Lampe> listLight;
 
         private V3 positionCamera;
-
         private Couleur couleurAmbiant = new Couleur(Couleur.White);
         
         private List<Item> listItem;

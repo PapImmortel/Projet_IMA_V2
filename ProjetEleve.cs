@@ -24,22 +24,33 @@ namespace Projet_IMA
 
             notreScene.addListLight(lampePrincipaleFluxDir3D);
             notreScene.addListLight(lFill3D);
-            
-            int kSpecularPower = 100;
-            float kBumpinessSphere = 0.02f;
-            float pas = 0.005f;
-            
+
+
+
 
 
 
             //texture
+            float kBumpinessSphere = 0.02f;
             V3 CentreSphere = new V3(300, 200, 300);
             float vRayon = 150;
-            Texture sphereTexture = new Texture("gold.jpg");
+            Texture sphereTexture = new Texture("uvtest.jpg");
             Texture sphereBumpiness = new Texture("bump38.jpg");
-            Sphere notreSphere = new Sphere(CentreSphere,sphereTexture, sphereBumpiness,vRayon);
+            Sphere notreSphere = new Sphere(CentreSphere, sphereTexture, sphereBumpiness, vRayon, kBumpinessSphere);
 
             notreScene.addListItem(notreSphere);
+
+            /*float kBumpinessRect = 0.008f;
+            V3 Origine = new V3(500, 200, 300);
+            V3 Coté1 = new V3(300, 000, 000);
+            V3 Coté2 = new V3(000, 200, 000);
+            //texture
+
+            Texture rectangleTexture = new Texture("gold.jpg");
+            Texture rectangleBumpiness = new Texture("bump38.jpg");
+
+            Parallelogramme notreRectangle = new Parallelogramme(Origine, Coté1, Coté2, rectangleTexture, rectangleBumpiness, kBumpinessRect);
+            notreScene.addListItem(notreRectangle);*/
 
             //raycasting
 
@@ -49,22 +60,22 @@ namespace Projet_IMA
                 {
                     V3 PosPixScene = new V3(x_ecran, 0, y_ecran);
                     V3 DirRayon = PosPixScene - notreScene.modifPositionCamera;
-                    Couleur couleurEcran = Illumination.raycasting(notreScene.modifPositionCamera, DirRayon, notreScene.getListItem); //ListObjetScene a definir
-                    Affiche(x_ecran, y_ecran, couleurEcran);
+                    Couleur couleurEcran = Illumination.raycasting(notreScene.modifPositionCamera, DirRayon, notreScene.getListItem(),notreScene.getListLampe()); //ListObjetScene a definir
+                    BitmapEcran.DrawPixel(x_ecran, y_ecran, couleurEcran + notreScene.modifCouleurAmbiante);
                 }
             }
 
 
 
 
-            for (float u = 0 ; u < 2 * IMA.PI; u += pas)  // echantillonage fnt paramétrique
+            /*for (float u = 0 ; u < 2 * IMA.PI; u += pas)  // echantillonage fnt paramétrique
             {
                 for (float v = -IMA.PI / 2; v < IMA.PI / 2; v += pas)
                 {
 
 
                     
-                    V3[] nosVariables = notreSphere.dessinVariable(u,v,kBumpinessSphere,notreScene.modifPositionCamera);
+                    V3[] nosVariables = notreSphere.dessinVariable(u,v,notreScene.modifPositionCamera);
 
                     Couleur couleurFinale = Illumination.éclairageObjet(notreScene.getListLampe(),notreSphere.getCouleurText(u,v), nosVariables[0], nosVariables[1], kSpecularPower);
                     
@@ -75,7 +86,7 @@ namespace Projet_IMA
                     BitmapEcran.DrawPixel(x_ecran, y_ecran, couleurFinale + notreScene.modifCouleurAmbiante);
                 }
 
-            }
+            }*/
 
 
 
@@ -88,7 +99,7 @@ namespace Projet_IMA
             //////////////////////////////////////////////////////////////////////////
 
 
-            int kSpecularPowerRect = 100;
+            /*int kSpecularPowerRect = 100;
             float kBumpinessRect = 0.008f;
              
 
@@ -100,7 +111,7 @@ namespace Projet_IMA
             Texture rectangleTexture = new Texture("gold.jpg");
             Texture rectangleBumpiness = new Texture("bump38.jpg");
 
-            Parallelogramme notreRectangle = new Parallelogramme(Origine,Coté1,Coté2,rectangleTexture,rectangleBumpiness);
+            Parallelogramme notreRectangle = new Parallelogramme(Origine,Coté1,Coté2,rectangleTexture,rectangleBumpiness,kBumpinessRect);
 
             pas = 0.002f;
             for (float u = 0; u < 1; u += pas)  // echantillonage fnt paramétrique
@@ -108,7 +119,7 @@ namespace Projet_IMA
                 for (float v = 0; v < 1; v += pas)
                 {
                    
-                    V3[] nosVariables = notreRectangle.dessinVariable(u, v, kBumpinessRect, notreScene.modifPositionCamera);
+                    V3[] nosVariables = notreRectangle.dessinVariable(u, v, notreScene.modifPositionCamera);
 
                     Couleur couleurFinale = Illumination.éclairageObjet(notreScene.getListLampe(), notreSphere.getCouleurText(u, v), nosVariables[0], nosVariables[1], kSpecularPowerRect);
 
@@ -119,7 +130,7 @@ namespace Projet_IMA
 
                 }
 
-            }
+            }*/
             // Gestion des textures
             // Texture T1 = new Texture("brick01.jpg");
             // Couleur c = T1.LireCouleur(u, v);
