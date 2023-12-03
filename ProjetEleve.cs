@@ -40,17 +40,17 @@ namespace Projet_IMA
 
             notreScene.addListItem(notreSphere);
 
-            /*float kBumpinessRect = 0.008f;
+            float kBumpinessRect = 0.008f;
             V3 Origine = new V3(500, 200, 300);
             V3 Coté1 = new V3(300, 000, 000);
             V3 Coté2 = new V3(000, 200, 000);
             //texture
 
-            Texture rectangleTexture = new Texture("gold.jpg");
+            Texture rectangleTexture = new Texture("uvtest.jpg");
             Texture rectangleBumpiness = new Texture("bump38.jpg");
 
             Parallelogramme notreRectangle = new Parallelogramme(Origine, Coté1, Coté2, rectangleTexture, rectangleBumpiness, kBumpinessRect);
-            notreScene.addListItem(notreRectangle);*/
+            notreScene.addListItem(notreRectangle);
 
             //raycasting
 

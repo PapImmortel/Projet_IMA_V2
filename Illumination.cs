@@ -36,11 +36,11 @@ namespace Projet_IMA
         }
         public static Couleur raycasting(V3 pPosCamera, V3 DirRayon, List<Item> ListObjetsScene, List<Lampe> pListLights)
         {
-            V3 pointIntersection;
+            V3 pointIntersection=new V3(0,0,0);
             Item notreItem=ListObjetsScene[0];
             float distanceMinim = (float)Double.MaxValue;
             float[] vUetV = new float[] {};
-
+            DirRayon.Normalize();
             foreach (Item item in ListObjetsScene)
             {
 
@@ -68,64 +68,10 @@ B² = 4 * Rd²*(R0²-2 * R0 * C + C²)
 B - 4AD = 4 * Rd²*(r²)
 
 Donc G = 4 * Rd²*r²*/
-                if (item.getType == 0)//si c'est une sphère
+                if(item.raycast(DirRayon,pPosCamera,ref pointIntersection, ref distanceMinim, ref vUetV))
                 {
-                    Sphere laSphere = (Sphere)item;
-                    float A = DirRayon * DirRayon;
-                    float B = 2 * DirRayon * (pPosCamera - laSphere.PositionCentre);
-                    float racineDelta = (float)Math.Sqrt(4 * DirRayon*DirRayon * laSphere.TailleRayon* laSphere.TailleRayon);
-                    float vT1 = (-B - racineDelta) / (2 * A);
-                    float vT2 = (-B + racineDelta) / (2 * A);
-
-                    if (vT1 > 0)
-                    {
-
-                        pointIntersection= pPosCamera + vT1 * DirRayon;
-                        if((pPosCamera-pointIntersection).Norm() < distanceMinim)
-                        {
-                            IMA.Invert_Coord_Spherique(pointIntersection, laSphere.PositionCentre, laSphere.TailleRayon, out float u, out float v);
-                            vUetV = new[] { u, v };
-                            notreItem = laSphere;
-                            distanceMinim= (pPosCamera - pointIntersection).Norm();
-                        }
-                        
-
-                    }
-                    else if (vT2 > 0)
-                    {
-                        pointIntersection = pPosCamera + vT2 * DirRayon;
-                        if ((pPosCamera - pointIntersection).Norm() < distanceMinim)
-                        {
-                            IMA.Invert_Coord_Spherique(pointIntersection, laSphere.PositionCentre, laSphere.TailleRayon, out float u, out float v);
-                            vUetV = new[] { u, v };
-                            notreItem = laSphere;
-                            distanceMinim = (pPosCamera - pointIntersection).Norm();
-                        }
-
-                    }
+                    notreItem = item;
                 }
-                else if (item.getType == 1)//Parallélogramme
-                {
-                    Parallelogramme leRect = (Parallelogramme)item;
-                    V3 normale = (V3.prod_vect(leRect.positionCote1, leRect.positionCote2)) / (V3.prod_vect(leRect.positionCote1, leRect.positionCote2).Norm());
-                    float vT = (V3.prod_scal(leRect.positionOrigine - pPosCamera, normale)) / (V3.prod_scal(DirRayon, normale));
-
-                    pointIntersection = pPosCamera + vT * DirRayon;
-
-                    float u = V3.prod_scal(((V3.prod_vect(leRect.positionCote2, normale))/(V3.prod_scal(V3.prod_vect(leRect.positionCote1, leRect.positionCote2),normale))),pointIntersection);
-                    float v = V3.prod_scal(((V3.prod_vect(leRect.positionCote1, normale)) / (V3.prod_scal(V3.prod_vect(leRect.positionCote2, leRect.positionCote1), normale))), pointIntersection);
-
-                    if (0 <= u && u <= 1 && 0 <= v && v <= 1)
-                    {
-                        if ((pPosCamera - pointIntersection).Norm() < distanceMinim)
-                        {
-                            vUetV = new[] { u, v };
-                            notreItem = leRect;
-                            distanceMinim = (pPosCamera - pointIntersection).Norm();
-                        }
-                    }
-                }
-
             }
             if(distanceMinim < (float)Double.MaxValue)
             {

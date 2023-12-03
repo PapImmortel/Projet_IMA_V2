@@ -38,6 +38,11 @@ namespace Projet_IMA
 
         public int getType { get { return this.aType; } protected set { this.aType = value; } }
 
+        public virtual bool raycast(V3 DirRayon, V3 pPosCamera, ref V3 pointIntersection, ref float distanceMinim, ref float[] vUetV)
+        {
+            return false;
+        }
+
     }
-        
+
 }

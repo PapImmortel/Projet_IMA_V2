@@ -53,6 +53,29 @@ namespace Projet_IMA
             return lesVariables;//, d3D,point3D
         }
 
+        public override bool raycast(V3 DirRayon, V3 pPosCamera, ref V3 pointIntersection, ref float distanceMinim, ref float[] vUetV)
+        {
+            V3 normale = (V3.prod_vect(this.coté1, this.coté2)) / (V3.prod_vect(this.coté1, this.coté2).Norm());
+            float vT = (V3.prod_scal(this.origine - pPosCamera, normale)) / (V3.prod_scal(DirRayon, normale));
+
+            pointIntersection = pPosCamera + vT * DirRayon;
+
+            float u = V3.prod_scal(((V3.prod_vect(this.coté2, normale)) / (V3.prod_scal(V3.prod_vect(this.coté1, this.coté2), normale))), pointIntersection);
+            float v = V3.prod_scal(((V3.prod_vect(this.coté1, normale)) / (V3.prod_scal(V3.prod_vect(this.coté2, this.coté1), normale))), pointIntersection);
+
+            if (0 <= u && u <= 1 && 0 <= v && v <= 1)
+            {
+                if ((pPosCamera - pointIntersection).Norm() < distanceMinim)
+                {
+                    vUetV = new[] { u, v };
+                    distanceMinim = (pPosCamera - pointIntersection).Norm();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
 
     }

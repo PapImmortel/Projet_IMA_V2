@@ -60,5 +60,41 @@ namespace Projet_IMA
             V3[] lesVariables = new[] { n3D, d3D};
             return lesVariables;//, d3D,point3D
         }
+        public override bool raycast(V3 DirRayon,V3 pPosCamera,ref V3 pointIntersection,ref float distanceMinim,ref float[] vUetV)
+        {
+            float A = DirRayon * DirRayon;
+            float B = 2 * DirRayon * (pPosCamera - this.centreSphere);
+            float racineDelta = (float)Math.Sqrt(4 * DirRayon * DirRayon * this.aRayon * this.aRayon);
+            float vT1 = (-B - racineDelta) / (2 * A);
+            float vT2 = (-B + racineDelta) / (2 * A);
+
+            if (vT1 > 0)
+            {
+
+                pointIntersection = pPosCamera + vT1 * DirRayon;
+                if ((pPosCamera - pointIntersection).Norm() < distanceMinim)
+                {
+                    IMA.Invert_Coord_Spherique(pointIntersection, this.centreSphere, this.aRayon, out float u, out float v);
+                    vUetV = new[] { u, v };
+                    distanceMinim = (pPosCamera - pointIntersection).Norm();
+                    return true;
+                }
+
+
+            }
+            else if (vT2 > 0)
+            {
+                pointIntersection = pPosCamera + vT2 * DirRayon;
+                if ((pPosCamera - pointIntersection).Norm() < distanceMinim)
+                {
+                    IMA.Invert_Coord_Spherique(pointIntersection, this.centreSphere, this.aRayon, out float u, out float v);
+                    vUetV = new[] { u, v };
+                    distanceMinim = (pPosCamera - pointIntersection).Norm();
+                    return true;
+                }
+
+            }
+            return false;
+        }
     }
 }
