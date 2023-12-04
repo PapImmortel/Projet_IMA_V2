@@ -64,11 +64,13 @@ namespace Projet_IMA
         {
             float A = DirRayon * DirRayon;
             float B = 2 * DirRayon * (pPosCamera - this.centreSphere);
-            float racineDelta = (float)Math.Sqrt(4 * DirRayon * DirRayon * this.aRayon * this.aRayon);
+            float D = pPosCamera * pPosCamera - 2 * pPosCamera * this.centreSphere + this.centreSphere * this.centreSphere - this.aRayon * this.aRayon;
+            float racineDelta = (float)Math.Sqrt(B * B - 4 * A * D);
+            //float racineDelta = (float)Math.Sqrt(4 * DirRayon * DirRayon * this.aRayon * this.aRayon);
             float vT1 = (-B - racineDelta) / (2 * A);
             float vT2 = (-B + racineDelta) / (2 * A);
 
-            if (vT1 > 0)
+            if (vT1 > 0 && vT2>0)
             {
 
                 pointIntersection = pPosCamera + vT1 * DirRayon;

@@ -60,8 +60,8 @@ namespace Projet_IMA
 
             pointIntersection = pPosCamera + vT * DirRayon;
 
-            float u = V3.prod_scal(((V3.prod_vect(this.coté2, normale)) / (V3.prod_scal(V3.prod_vect(this.coté1, this.coté2), normale))), pointIntersection);
-            float v = V3.prod_scal(((V3.prod_vect(this.coté1, normale)) / (V3.prod_scal(V3.prod_vect(this.coté2, this.coté1), normale))), pointIntersection);
+            float u = V3.prod_scal(((V3.prod_vect(this.coté2, normale)) / (V3.prod_scal(V3.prod_vect(this.coté1, this.coté2), normale))),  pointIntersection- this.origine);
+            float v = V3.prod_scal(((V3.prod_vect(this.coté1, normale)) / (V3.prod_scal(V3.prod_vect(this.coté2, this.coté1), normale))), pointIntersection- this.origine );
 
             if (0 <= u && u <= 1 && 0 <= v && v <= 1)
             {
