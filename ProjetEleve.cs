@@ -112,7 +112,7 @@ namespace Projet_IMA
             notreSphere = new Sphere(CentreSphere, sphereTexture, sphereBumpiness, vRayon, kBumpinessSphere);
 
             notreScene.addListItem(notreSphere);
-
+             
             //petit cercle gauche
             kBumpinessSphere = 0.02f;
             CentreSphere = new V3(120, 700, 120);
