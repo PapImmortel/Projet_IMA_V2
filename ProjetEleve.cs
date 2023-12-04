@@ -28,30 +28,100 @@ namespace Projet_IMA
 
 
 
+            // MUR DU BAS
+            float kBumpinessRect = 0.008f;
+            V3 Origine = new V3(0, 0, 0);
+            V3 Coté1 = new V3(BitmapEcran.GetWidth(), 0, 0);
+            V3 Coté2 = new V3(000, BitmapEcran.GetWidth(), 100);
+            //texture
+
+            Texture rectangleTexture = new Texture("gold.jpg");
+            Texture rectangleBumpiness = new Texture("bump38.jpg");
+
+            Parallelogramme notreRectangle = new Parallelogramme(Origine, Coté1, Coté2, rectangleTexture, rectangleBumpiness, kBumpinessRect);
+            notreScene.addListItem(notreRectangle);
+            // MUR DU HAUT
+            kBumpinessRect = 0.008f;
+            Origine = new V3(0, BitmapEcran.GetWidth(), BitmapEcran.GetHeight() - 100);
+            Coté1 = new V3(BitmapEcran.GetWidth(), 0, 0);
+            Coté2 = new V3(0, -BitmapEcran.GetWidth(), 100);
+            //texture
+
+            rectangleTexture = new Texture("fibre.jpg");
+            rectangleBumpiness = new Texture("bump38.jpg");
+
+            notreRectangle = new Parallelogramme(Origine, Coté1, Coté2, rectangleTexture, rectangleBumpiness, kBumpinessRect);
+            notreScene.addListItem(notreRectangle);
+
+            // MUR DU CENTRE
+            kBumpinessRect = 0.008f;
+            Origine = new V3(100, BitmapEcran.GetWidth(), 100);
+            Coté1 = new V3(BitmapEcran.GetWidth() - 200, 0, 0);
+            Coté2 = new V3(0, 0, BitmapEcran.GetHeight() - 200);
+            //texture
+
+            rectangleTexture = new Texture("lead.jpg");
+            rectangleBumpiness = new Texture("bump38.jpg");
+
+            notreRectangle = new Parallelogramme(Origine, Coté1, Coté2, rectangleTexture, rectangleBumpiness, kBumpinessRect);
+            notreScene.addListItem(notreRectangle);
+            //MUR DE GAUCHE
+            kBumpinessRect = 0.008f;
+            Origine = new V3(0, 0, 0);
+            Coté1 = new V3(100, BitmapEcran.GetWidth(), 0);
+            Coté2 = new V3(0, 0, BitmapEcran.GetHeight());
+            //texture
+
+            rectangleTexture = new Texture("rock.jpg");
+            rectangleBumpiness = new Texture("bump38.jpg");
+
+            notreRectangle = new Parallelogramme(Origine, Coté1, Coté2, rectangleTexture, rectangleBumpiness, kBumpinessRect);
+            notreScene.addListItem(notreRectangle);
+
+            //MUR DE DROITE
+            kBumpinessRect = 0.008f;
+            Origine = new V3(BitmapEcran.GetWidth()-100, BitmapEcran.GetWidth(), 0);
+            Coté1 = new V3(100, -BitmapEcran.GetWidth(), 0);
+            Coté2 = new V3(0, 0, BitmapEcran.GetHeight());
+            //texture
+
+            rectangleTexture = new Texture("wood.jpg");
+            rectangleBumpiness = new Texture("bump38.jpg");
+
+            notreRectangle = new Parallelogramme(Origine, Coté1, Coté2, rectangleTexture, rectangleBumpiness, kBumpinessRect);
+            notreScene.addListItem(notreRectangle);
 
 
+            //CERCLE CENTRALE
             //texture
             float kBumpinessSphere = 0.02f;
-            V3 CentreSphere = new V3(300, 400, 300);
+            V3 CentreSphere = new V3(BitmapEcran.GetWidth()/2, 500, BitmapEcran.GetHeight()/2);
             float vRayon = 150;
-            Texture sphereTexture = new Texture("uvtest.jpg");
+            Texture sphereTexture = new Texture("stone2.jpg");
             Texture sphereBumpiness = new Texture("bump38.jpg");
             Sphere notreSphere = new Sphere(CentreSphere, sphereTexture, sphereBumpiness, vRayon, kBumpinessSphere);
 
             notreScene.addListItem(notreSphere);
 
-            float kBumpinessRect = 0.008f;
-            V3 Origine = new V3(500, 100, 300);
-            V3 Coté1 = new V3(300, 000, 000);
-            V3 Coté2 = new V3(000, 000, 200);
-            //texture
+            //petit cercle droite
+            kBumpinessSphere = 0.02f;
+            CentreSphere = new V3((BitmapEcran.GetWidth() / 2)+100, 300, (BitmapEcran.GetHeight() / 2)-100);
+            vRayon = 70;
+            sphereTexture = new Texture("brick01.jpg");
+            sphereBumpiness = new Texture("bump38.jpg");
+            notreSphere = new Sphere(CentreSphere, sphereTexture, sphereBumpiness, vRayon, kBumpinessSphere);
 
-            Texture rectangleTexture = new Texture("uvtest.jpg");
-            Texture rectangleBumpiness = new Texture("bump38.jpg");
+            notreScene.addListItem(notreSphere);
 
-            Parallelogramme notreRectangle = new Parallelogramme(Origine, Coté1, Coté2, rectangleTexture, rectangleBumpiness, kBumpinessRect);
-            notreScene.addListItem(notreRectangle);
+            //petit cercle gauche
+            kBumpinessSphere = 0.02f;
+            CentreSphere = new V3(120, 700, 120);
+            vRayon = 60;
+            sphereTexture = new Texture("brick01.jpg");
+            sphereBumpiness = new Texture("bump38.jpg");
+            notreSphere = new Sphere(CentreSphere, sphereTexture, sphereBumpiness, vRayon, kBumpinessSphere);
 
+            notreScene.addListItem(notreSphere);
             //raycasting
 
             for (int x_ecran = 0; x_ecran <= BitmapEcran.GetWidth(); x_ecran++)
