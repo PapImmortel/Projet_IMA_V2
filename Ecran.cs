@@ -13,7 +13,7 @@ namespace Projet_IMA
     class BitmapEcran
     {
         const int refresh_every = 1000; // force l'affiche tous les xx pix
-        static int nb_pix = 0;                 // comptage des pixels
+        static int nb_pix = 0;          // comptage des pixels
         
         static private Bitmap B;
         static private ModeAff Mode;

@@ -8,67 +8,57 @@ namespace Projet_IMA
     class Parallelogramme : Item
     {
         private V3 origine;
-        private V3 coté1;
-        private V3 coté2;
+        private V3 longueurHorizontale;
+        private V3 longueurVerticale;
         
-        public Parallelogramme(V3 pOrigine,V3 pCote1,V3 pCote2,Texture pRectangleTexture, Texture pRectangleBumpiness, float pKBumpiness) : base(1,pRectangleTexture,pRectangleBumpiness, pKBumpiness)
+        public Parallelogramme(V3 origine, V3 longueurVerticale, V3 longueurHorizontale, Texture texture, Texture bumpiness, float kBumpiness) : base(1, texture, bumpiness, kBumpiness)
         {
-            this.origine = pOrigine;
-            this.coté1 = pCote1;
-            this.coté2 = pCote2;
+            this.origine = origine;
+            this.longueurHorizontale = longueurHorizontale;
+            this.longueurVerticale = longueurVerticale;
         }
 
-        public V3 positionOrigine { get { return this.origine; } set { this.origine = value; } }
-        public V3 positionCote1 { get { return this.coté1; } set { this.coté1 = value; } }
-        public V3 positionCote2 { get { return this.coté2; } set { this.coté2 = value; } }
-
-        public override Couleur getCouleurText(float u, float v)
+        public override Couleur getCouleurTexture(float u, float v)
         {
-            Couleur cRectangle = TexturePack.LireCouleur(u, v);
-            return cRectangle;
+            return TexturePack.LireCouleur(u, v);
         }
+
         public override V3[] dessinVariable(float u, float v, V3 positionCamera3D)
         {
-            V3 P3D = this.origine + u * this.coté1 + v * this.coté2;
-
-
+            V3 p3D = this.origine + u * this.longueurHorizontale + v * this.longueurVerticale;
             V3 n3D = new V3(0, 0, 60000);
             TextureBumpiness.Bump(u, v, out float dhdu, out float dhdv);
 
-
-
-            V3 dmdu = this.coté1;
-            V3 dmdv = this.coté2;
-
-            V3 nBump3D = n3D + (modifKBumpiness * (dhdu * V3.prod_vect(n3D, dmdv) + (dhdv * V3.prod_vect(dmdu, n3D))));
+            V3 dmdu = this.longueurHorizontale;
+            V3 dmdv = this.longueurVerticale;
+            V3 nBump3D = n3D + (Bumpiness * (dhdu * V3.prod_vect(n3D, dmdv) + (dhdv * V3.prod_vect(dmdu, n3D))));
 
             n3D = nBump3D;
             n3D.Normalize();
+
             Couleur couleurFinale = new Couleur(0, 0, 0);
-            V3 d3D = positionCamera3D - P3D;
+            V3 d3D = positionCamera3D - p3D;
             d3D.Normalize();
 
-            /*V3[] lesVariables = new[] { n3D, d3D, P3D };*/
-            V3[] lesVariables = new[] { n3D, d3D};
-            return lesVariables;//, d3D,point3D
+            return new[] { n3D, d3D};
         }
 
-        public override bool raycast(V3 DirRayon, V3 pPosCamera, ref V3 pointIntersection, ref float distanceMinim, ref float[] vUetV)
+        public override bool raycast(V3 dirRayon, V3 posCamera, ref V3 pointIntersection, ref float distanceMinim, ref float[] valUV)
         {
-            V3 normale = (V3.prod_vect(this.coté1, this.coté2)) / (V3.prod_vect(this.coté1, this.coté2).Norm());
-            float vT = (V3.prod_scal(this.origine - pPosCamera, normale)) / (V3.prod_scal(DirRayon, normale));
+            V3 normale = (V3.prod_vect(this.longueurHorizontale, this.longueurVerticale)) / (V3.prod_vect(this.longueurHorizontale, this.longueurVerticale).Norm());
+            float vT = (V3.prod_scal(this.origine - posCamera, normale)) / (V3.prod_scal(dirRayon, normale));
 
-            pointIntersection = pPosCamera + vT * DirRayon;
+            pointIntersection = posCamera + vT * dirRayon;
 
-            float u = V3.prod_scal(((V3.prod_vect(this.coté2, normale)) / (V3.prod_scal(V3.prod_vect(this.coté1, this.coté2), normale))),  pointIntersection- this.origine);
-            float v = V3.prod_scal(((V3.prod_vect(this.coté1, normale)) / (V3.prod_scal(V3.prod_vect(this.coté2, this.coté1), normale))), pointIntersection- this.origine );
+            float u = V3.prod_scal(((V3.prod_vect(this.longueurVerticale, normale)) / (V3.prod_scal(V3.prod_vect(this.longueurHorizontale, this.longueurVerticale), normale))),  pointIntersection- this.origine);
+            float v = V3.prod_scal(((V3.prod_vect(this.longueurHorizontale, normale)) / (V3.prod_scal(V3.prod_vect(this.longueurVerticale, this.longueurHorizontale), normale))), pointIntersection- this.origine );
 
             if (0 <= u && u <= 1 && 0 <= v && v <= 1)
             {
-                if ((pPosCamera - pointIntersection).Norm() < distanceMinim)
+                if ((posCamera - pointIntersection).Norm() < distanceMinim)
                 {
-                    vUetV = new[] { u, v };
-                    distanceMinim = (pPosCamera - pointIntersection).Norm();
+                    valUV = new[] { u, v };
+                    distanceMinim = (posCamera - pointIntersection).Norm();
                     return true;
                 }
             }
