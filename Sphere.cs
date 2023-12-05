@@ -66,23 +66,26 @@ namespace Projet_IMA
 
             if (vT1 > 0 && vT2>0)
             {
-                pointIntersection = posCamera + vT1 * dirRayon;
-                if ((posCamera - pointIntersection).Norm() < distanceMinim)
+                V3 pointContact = posCamera + vT1 * dirRayon;
+                if ((posCamera - pointContact).Norm() < distanceMinim)
                 {
-                    IMA.Invert_Coord_Spherique(pointIntersection, this.centreSphere, this.rayon, out float u, out float v);
+                    IMA.Invert_Coord_Spherique(pointContact, this.centreSphere, this.rayon, out float u, out float v);
                     valUV = new[] { u, v };
-                    distanceMinim = (posCamera - pointIntersection).Norm();
+                    distanceMinim = (posCamera - pointContact).Norm();
+                    pointIntersection = pointContact;
+
                     return true;
                 }
             }
             else if (vT2 > 0)
             {
-                pointIntersection = posCamera + vT2 * dirRayon;
-                if ((posCamera - pointIntersection).Norm() < distanceMinim)
+                V3 pointContact = posCamera + vT2 * dirRayon;
+                if ((posCamera - pointContact).Norm() < distanceMinim)
                 {
-                    IMA.Invert_Coord_Spherique(pointIntersection, this.centreSphere, this.rayon, out float u, out float v);
+                    IMA.Invert_Coord_Spherique(pointContact, this.centreSphere, this.rayon, out float u, out float v);
                     valUV = new[] { u, v };
-                    distanceMinim = (posCamera - pointIntersection).Norm();
+                    distanceMinim = (posCamera - pointContact).Norm();
+                    pointIntersection = pointContact;
                     return true;
                 }
             }

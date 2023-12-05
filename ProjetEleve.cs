@@ -24,7 +24,7 @@ namespace Projet_IMA
 
             Parallelogramme rectangle;
             Lampe lampePrincipaleFluxDir3D = new Lampe(0.7f, new V3(1, -1, 1) / IMA.Sqrtf(3));
-            Lampe lFill3D = new Lampe(0.3f, new V3(-1, -1, 1) / IMA.Sqrtf(3));
+            Lampe lFill3D = new Lampe(0.3f, new V3(-1, -1, -1) / IMA.Sqrtf(3));
 
             scene.addLampe(lampePrincipaleFluxDir3D);
             scene.addLampe(lFill3D);
@@ -35,7 +35,7 @@ namespace Projet_IMA
             // MUR DU BAS
             V3 Origine = new V3(0, 0, 0);
             V3 longueurHorizontale = new V3(BitmapEcran.GetWidth(), 0, 0);
-            V3 longueurVerticale = new V3(0, BitmapEcran.GetWidth(), 100);
+            V3 longueurVerticale = new V3(0, BitmapEcran.GetWidth(), 0);
 
             // textures
             Texture rectangleTexture = new Texture("gold.jpg");
@@ -46,9 +46,9 @@ namespace Projet_IMA
 
 
             // MUR DU HAUT
-            Origine = new V3(0, BitmapEcran.GetWidth(), BitmapEcran.GetHeight() - 100);
+            Origine = new V3(0, BitmapEcran.GetWidth(), BitmapEcran.GetHeight());
             longueurHorizontale = new V3(BitmapEcran.GetWidth(), 0, 0);
-            longueurVerticale = new V3(0, -BitmapEcran.GetWidth(), 100);
+            longueurVerticale = new V3(0, -BitmapEcran.GetWidth(), 0);
 
             // textures
             rectangleTexture = new Texture("fibre.jpg");
@@ -59,10 +59,10 @@ namespace Projet_IMA
 
 
             // MUR DU CENTRE
-            Origine = new V3(100, BitmapEcran.GetWidth(), 100);
-            longueurHorizontale = new V3(BitmapEcran.GetWidth() - 200, 0, 0);
-            longueurVerticale = new V3(0, 0, BitmapEcran.GetHeight() - 200);
-            
+            Origine = new V3(0, BitmapEcran.GetWidth(), 0);
+            longueurHorizontale = new V3(BitmapEcran.GetWidth(), 0, 0);
+            longueurVerticale = new V3(0, 0, BitmapEcran.GetHeight());
+
             // textures
             rectangleTexture = new Texture("lead.jpg");
             rectangleBumpiness = new Texture("bump38.jpg");
@@ -73,9 +73,9 @@ namespace Projet_IMA
 
             //MUR DE GAUCHE
             Origine = new V3(0, 0, 0);
-            longueurHorizontale = new V3(100, BitmapEcran.GetWidth(), 0);
+            longueurHorizontale = new V3(0, BitmapEcran.GetWidth(), 0);
             longueurVerticale = new V3(0, 0, BitmapEcran.GetHeight());
-            
+
             // textures
             rectangleTexture = new Texture("rock.jpg");
             rectangleBumpiness = new Texture("bump38.jpg");
@@ -85,8 +85,8 @@ namespace Projet_IMA
 
 
             //MUR DE DROITE
-            Origine = new V3(BitmapEcran.GetWidth()-100, BitmapEcran.GetWidth(), 0);
-            longueurHorizontale = new V3(100, -BitmapEcran.GetWidth(), 0);
+            Origine = new V3(BitmapEcran.GetWidth(), BitmapEcran.GetWidth(), 0);
+            longueurHorizontale = new V3(0, -BitmapEcran.GetWidth(), 0);
             longueurVerticale = new V3(0, 0, BitmapEcran.GetHeight());
 
             // textures
@@ -98,7 +98,7 @@ namespace Projet_IMA
 
 
             // SPHERE CENTRALE
-            V3 CentreSphere = new V3(BitmapEcran.GetWidth()/2, 500, BitmapEcran.GetHeight()/2);
+            V3 CentreSphere = new V3(BitmapEcran.GetWidth() / 2, 200, BitmapEcran.GetHeight() / 2);
             float vRayon = 150;
 
             // textures
@@ -110,7 +110,7 @@ namespace Projet_IMA
 
 
             // SPHERE DROITE
-            CentreSphere = new V3((BitmapEcran.GetWidth() / 2)+100, 300, (BitmapEcran.GetHeight() / 2)-100);
+            CentreSphere = new V3((BitmapEcran.GetWidth() / 2) + 100, 100, (BitmapEcran.GetHeight() / 2) - 100);
             vRayon = 70;
 
             // textures
@@ -122,7 +122,7 @@ namespace Projet_IMA
 
 
             // SPHERE GAUCHE
-            CentreSphere = new V3(120, 700, 120);
+            CentreSphere = new V3(120, 300, 120);
             vRayon = 60;
 
             // textures
@@ -131,7 +131,7 @@ namespace Projet_IMA
 
             notreSphere = new Sphere(CentreSphere, sphereTexture, sphereBumpiness, vRayon, kBumpinessSphere);
             scene.addListeItem(notreSphere);
- 
+
 
             // Raycasting
             for (int x_ecran = 0; x_ecran <= BitmapEcran.GetWidth(); x_ecran++)

@@ -48,17 +48,19 @@ namespace Projet_IMA
             V3 normale = (V3.prod_vect(this.longueurHorizontale, this.longueurVerticale)) / (V3.prod_vect(this.longueurHorizontale, this.longueurVerticale).Norm());
             float vT = (V3.prod_scal(this.origine - posCamera, normale)) / (V3.prod_scal(dirRayon, normale));
 
-            pointIntersection = posCamera + vT * dirRayon;
+            V3 pointContact = posCamera + vT * dirRayon;
 
-            float u = V3.prod_scal(((V3.prod_vect(this.longueurVerticale, normale)) / (V3.prod_scal(V3.prod_vect(this.longueurHorizontale, this.longueurVerticale), normale))),  pointIntersection- this.origine);
-            float v = V3.prod_scal(((V3.prod_vect(this.longueurHorizontale, normale)) / (V3.prod_scal(V3.prod_vect(this.longueurVerticale, this.longueurHorizontale), normale))), pointIntersection- this.origine );
+            float u = V3.prod_scal(((V3.prod_vect(this.longueurVerticale, normale)) / (V3.prod_scal(V3.prod_vect(this.longueurHorizontale, this.longueurVerticale), normale))),  pointContact- this.origine);
+            float v = V3.prod_scal(((V3.prod_vect(this.longueurHorizontale, normale)) / (V3.prod_scal(V3.prod_vect(this.longueurVerticale, this.longueurHorizontale), normale))), pointContact- this.origine );
 
             if (0 <= u && u <= 1 && 0 <= v && v <= 1)
             {
-                if ((posCamera - pointIntersection).Norm() < distanceMinim)
+                if ((posCamera - pointContact).Norm() < distanceMinim)
                 {
                     valUV = new[] { u, v };
-                    distanceMinim = (posCamera - pointIntersection).Norm();
+                    distanceMinim = (posCamera - pointContact).Norm();
+                    pointIntersection = pointContact;
+
                     return true;
                 }
             }
