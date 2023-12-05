@@ -23,7 +23,7 @@ namespace Projet_IMA
             return TexturePack.LireCouleur(u, v);
         }
 
-        public override V3[] dessinVariable(float u, float v, V3 positionCamera3D)
+        public override V3[] calculVariableDessin(float u, float v, V3 positionCamera3D)
         {
             V3 p3D = this.origine + u * this.longueurHorizontale + v * this.longueurVerticale;
             V3 n3D = new V3(0, 0, 60000);

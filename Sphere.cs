@@ -23,7 +23,7 @@ namespace Projet_IMA
             return TexturePack.LireCouleur(uNorm, vNorm);
         }
 
-        public override V3[] dessinVariable(float u, float v, V3 positionCamera3D)
+        public override V3[] calculVariableDessin(float u, float v, V3 positionCamera3D)
         {
             float nX3D = IMA.Cosf(v) * IMA.Cosf(u);
             float nY3D = IMA.Cosf(v) * IMA.Sinf(u);

@@ -29,8 +29,10 @@ namespace Projet_IMA
             scene.addLampe(lampePrincipaleFluxDir3D);
             scene.addLampe(lFill3D);
 
-            // MUR DU BAS
             float kBumpinessRect = 0.008f;
+            float kBumpinessSphere = 0.02f;
+
+            // MUR DU BAS
             V3 Origine = new V3(0, 0, 0);
             V3 longueurHorizontale = new V3(BitmapEcran.GetWidth(), 0, 0);
             V3 longueurVerticale = new V3(0, BitmapEcran.GetWidth(), 100);
@@ -44,7 +46,6 @@ namespace Projet_IMA
 
 
             // MUR DU HAUT
-            kBumpinessRect = 0.008f;
             Origine = new V3(0, BitmapEcran.GetWidth(), BitmapEcran.GetHeight() - 100);
             longueurHorizontale = new V3(BitmapEcran.GetWidth(), 0, 0);
             longueurVerticale = new V3(0, -BitmapEcran.GetWidth(), 100);
@@ -58,7 +59,6 @@ namespace Projet_IMA
 
 
             // MUR DU CENTRE
-            kBumpinessRect = 0.008f;
             Origine = new V3(100, BitmapEcran.GetWidth(), 100);
             longueurHorizontale = new V3(BitmapEcran.GetWidth() - 200, 0, 0);
             longueurVerticale = new V3(0, 0, BitmapEcran.GetHeight() - 200);
@@ -72,7 +72,6 @@ namespace Projet_IMA
 
 
             //MUR DE GAUCHE
-            kBumpinessRect = 0.008f;
             Origine = new V3(0, 0, 0);
             longueurHorizontale = new V3(100, BitmapEcran.GetWidth(), 0);
             longueurVerticale = new V3(0, 0, BitmapEcran.GetHeight());
@@ -86,7 +85,6 @@ namespace Projet_IMA
 
 
             //MUR DE DROITE
-            kBumpinessRect = 0.008f;
             Origine = new V3(BitmapEcran.GetWidth()-100, BitmapEcran.GetWidth(), 0);
             longueurHorizontale = new V3(100, -BitmapEcran.GetWidth(), 0);
             longueurVerticale = new V3(0, 0, BitmapEcran.GetHeight());
@@ -100,7 +98,6 @@ namespace Projet_IMA
 
 
             // SPHERE CENTRALE
-            float kBumpinessSphere = 0.02f;
             V3 CentreSphere = new V3(BitmapEcran.GetWidth()/2, 500, BitmapEcran.GetHeight()/2);
             float vRayon = 150;
 
@@ -113,7 +110,6 @@ namespace Projet_IMA
 
 
             // SPHERE DROITE
-            kBumpinessSphere = 0.02f;
             CentreSphere = new V3((BitmapEcran.GetWidth() / 2)+100, 300, (BitmapEcran.GetHeight() / 2)-100);
             vRayon = 70;
 
@@ -126,7 +122,6 @@ namespace Projet_IMA
 
 
             // SPHERE GAUCHE
-            kBumpinessSphere = 0.02f;
             CentreSphere = new V3(120, 700, 120);
             vRayon = 60;
 
